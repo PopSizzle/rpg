@@ -1,15 +1,15 @@
 import React from 'react';
-import m1 from '../../assets/m1.png';
 
-export default function Sprite() {
+export default function Sprite(props) {
+  const { y, x, h, w } = props.data;
   return <div
     style={{
       display: "inline-block",
-      height: "32px",
-      width: "32px",
-      backgroundImage: m1,
+      height: `${h}px`,
+      width: `${w}px`,
+      backgroundImage: `url(${props.image})`,
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "0px 0px"
+      backgroundPosition: `-${x}px -${y}px`
     }}
     />
 }
