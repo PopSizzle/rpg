@@ -6,6 +6,13 @@ export default function Actor(props) {
   const h = props.data.h;
   const w = props.data.w;
 
+  let position = {
+    x:0,
+    y:0,
+  }
+
+  if(props.position) position = props.position;
+
   return (
     <Sprite
       image={props.image}
@@ -15,6 +22,7 @@ export default function Actor(props) {
         w: w,
         h: h,
       }}
+      position={position}
     />
   )
 }

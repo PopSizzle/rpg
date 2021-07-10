@@ -2,6 +2,7 @@ import {useState} from 'react'
 
 export default function useWalk(maxSteps){
 
+  const [position, setPosition] = useState({x:0, y:0});
   const [dir, setDir] = useState(0);
   const [step, setStep] = useState(0);
   const directions = {
@@ -11,9 +12,21 @@ export default function useWalk(maxSteps){
     up: 3,
   };
 
+  const stepSize = 16;
+
+  const modifier = {
+    down: { x: 0, y: stepSize },
+    left: { x: -stepSize, y: 0 },
+    right: { x: stepSize, y: 0 },
+    up: { x: 0, y: -stepSize },
+  }
+
   function walk(dir){
 
-    if(directions[dir] >= 0) setDir(directions[dir]);
+    setDir(prev => {
+      if(directions[dir] === prev) move(dir);
+      return directions[dir];
+    })
 
     let steps = step;
 
@@ -23,10 +36,24 @@ export default function useWalk(maxSteps){
     setStep(steps);
   }
 
+  function move(dir) {
+
+    let loc = { x:0, y:0}
+
+    if(position) loc = position;
+
+    console.log(dir);
+
+    loc.x += modifier[dir].x;
+    loc.y += modifier[dir].y;
+
+    setPosition(loc);
+  }
+
   return {
     walk,
     dir,
     step,
-    directions,
+    position,
   }
 }

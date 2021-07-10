@@ -5,25 +5,16 @@ import useWalk from '../../hooks/useWalk';
 
 export default function Player(props) {
 
-  const { dir, step, walk } = useWalk(3);
-
-  const directions = {
-    down: 0,
-    left: 1,
-    right: 2,
-    up: 3,
-  }
+  const { dir, step, walk, position } = useWalk(3);
 
   useKeyPress((e) =>{
     e.preventDefault();
 
-    const dir = e.key.replace('Arrow', '').toLowerCase()
-
-    walk(dir);
+    walk(e.key.replace('Arrow', '').toLowerCase());
   })
 
   return <Actor image={props.image}
-  data={props.data} step={step} dir={dir}
+  data={props.data} step={step} dir={dir} position={position}
   />
 
 }
